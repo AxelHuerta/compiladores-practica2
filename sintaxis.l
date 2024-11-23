@@ -11,6 +11,10 @@
     printf("Comentario de una línea: %s\n", yytext);
 }
 
+"/*".*"*/" {
+    printf("Comentario de varias líneas: %s\n", yytext);
+}
+
 "+"|"-"|"*"|"/"|"^"|"%"|":"|";"|"{"|"}"|"&&"|"||" {
     printf("Es un operador: %s\n", yytext);
 }
