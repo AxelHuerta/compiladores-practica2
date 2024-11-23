@@ -3,99 +3,37 @@
 %}
 
 %%
-["let" | "const"] {
-    printf("Se define una variable: %s.\n", yytext);
-    return 0;
+"let"|"const"|"string"|"int"|"float"|"double"|"bool"|"char"|"true"|"false"|"do"|"while"|"if"|"else"|"file"|"for"|"func" {
+    printf("Es una palabra reservada: %s.\n", yytext);
 }
 
-"string" {
-    printf("Se define el tipo string: %s.\n", yytext);
-    return 0;
+"//"[^\n]* {
+    printf("Comentario de una línea: %s\n", yytext);
 }
 
-"int" {
-    printf("Se define el tipo entero: %s.\n", yytext);
-    return 0;
+"+"|"-"|"*"|"/"|"^"|"%"|":"|";"|"{"|"}"|"&&"|"||" {
+    printf("Es un operador: %s\n", yytext);
 }
 
-"float" {
-    printf("Se define el tipo flotante: %s.\n", yytext);
-    return 0;
+[+-]?[0-9]+ {
+    printf("Es un número entero: %s\n", yytext);
 }
 
-"double" {
-    printf("Se define el tipo doble: %s.\n", yytext);
-    return 0;
+[+-]?[0-9]+"."[0-9]+ {
+    printf("Es un número decimal: %s\n", yytext);
 }
 
-"bool" {
-    printf("Se define el tipo booleano: %s.\n", yytext);
-    return 0;
+[+-]?[0-9]+"."[0-9]+"e"[+-]?[0-9]+|[+-]?[0-9]+"e"[+-]?[0-9]+ {
+    printf("Es un número en notación científica: %s\n", yytext);
 }
 
-"char" {
-    printf("Se define el tipo caracter: %s.\n", yytext);
-    return 0;
+\"[^\"]*\" {
+    printf("Es una cadena de texto: %s\n", yytext);
 }
 
-"&&" {
-    printf("Se define el operador 'y': %s.\n", yytext);
-    return 0;
+\'[^\']\' {
+    printf("Es un caracter: %s\n", yytext);
 }
-
-"||" {
-    printf("Se define el operador 'o': %s.\n", yytext);
-    return 0;
-}
-
-
-"true" {
-    printf("Se define el valor verdadero: %s.\n", yytext);
-    return 0;
-}
-
-"false" {
-    printf("Se define el valor falso: %s.\n", yytext);
-    return 0;
-}
-
-"{" {
-    printf("Se define el inicio del bloque: %s.\n", yytext);
-    return 0;
-}
-
-"}" {
-    printf("Se define el fin del bloque: %s.\n", yytext);
-    return 0;
-}
-
-"do" {
-    printf("Se define el 'haz algo' complemento del 'while': %s.\n", yytext);
-    return 0;
-}
-
-"while" {
-    printf("Se define el ciclo 'while' (mientras): %s.\n", yytext);
-    return 0;
-}
-
-"for" {
-    printf("Se define el ciclo 'for' (para): %s.\n", yytext);
-    return 0;
-}
-
-"if" {
-    printf("Se define el bloque condicional: %s.\n", yytext);
-    return 0;
-}
-
-"else" {
-    printf("Se define el  bloque condicional complemento: %s.\n", yytext);
-    return 0;
-}
-
-
-
 
 .* {
     printf("Caracter no reconocido: %s \n", yytext);
