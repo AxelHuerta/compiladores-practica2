@@ -3,7 +3,7 @@
 %}
 
 %%
-"let"|"const"|"string"|"int"|"float"|"double"|"bool"|"char"|"true"|"false"|"do"|"while"|"if"|"else"|"file"|"for"|"func" {
+"let"|"const"|"string"|"int"|"float"|"double"|"bool"|"char"|"true"|"false"|"do"|"while"|"if"|"else"|"file"|"for"|"func"([ \t\n]+|$) {
     printf("Es una palabra reservada: %s.\n", yytext);
 }
 
@@ -15,7 +15,7 @@
     printf("Comentario de varias líneas: %s\n", yytext);
 }
 
-"+"|"-"|"*"|"/"|"^"|"%"|":"|";"|"{"|"}"|"&&"|"||"|"<="|">="|"="|"==" {
+"+"|"-"|"*"|"/"|"^"|"%"|":"|";"|"{"|"}"|"&&"|"||"|"<="|">="|"="|"=="|"!="|"<"|">" {
     printf("Es un operador: %s\n", yytext);
 }
 
@@ -39,25 +39,21 @@
     printf("Es un caracter: %s\n", yytext);
 }
 
-[^\n\t ]+ {
-    /* Ignorar espacios en blanco y saltos de línea */
+[\n\t ]+ {
+    /* Ignorar espacios y tabulaciones */
 }
 
-[A-z]* {
-    printf("Caracter no reconocido: %s\n", yytext);
-}
-
-.* {
-    printf("Caracter no reconocido del punto: %s\n", yytext);
+[!-~]+ {
+    printf("Cadena inválida: %s\n", yytext);
 }
 
 %%
 
 int main(int argc, char **argv){
-    yylex();
-    return 0;
+    /* yylex();
+    return 0; */
 
-	/* ++argv, --argc;
+	++argv, --argc;
 	if(argc > 0)
 			yyin = fopen(argv[0], "r");
 	else
@@ -66,6 +62,6 @@ int main(int argc, char **argv){
 	yylex();
 
 
-	return 0; */
+	return 0;
 }
 
