@@ -3,7 +3,7 @@
 %}
 
 %%
-"let"|"const"|"string"|"int"|"float"|"double"|"bool"|"char"|"true"|"false"|"do"|"while"|"if"|"else"|"file"|"for"|"func"([ \t\n]+|$) {
+"let"|"const"|"string"|"int"|"float"|"double"|"bool"|"char"|"true"|"false"|"do"|"while"|"if"|"else"|"file"|"for"|"func" {
     printf("Es una palabra reservada: %s.\n", yytext);
 }
 
@@ -11,7 +11,7 @@
     printf("Comentario de una línea: %s\n", yytext);
 }
 
-"/*".*"*/" {
+"/*"(.|\n)*"*/" {
     printf("Comentario de varias líneas: %s\n", yytext);
 }
 
@@ -39,12 +39,13 @@
     printf("Es un caracter: %s\n", yytext);
 }
 
-[\n\t ]+ {
-    /* Ignorar espacios y tabulaciones */
+[ \t\n]+ {
+    /* Ignora los espacios en blanco, tabuladores y saltos de linea */
 }
 
-[!-~]+ {
-    printf("Cadena inválida: %s\n", yytext);
+[^\n\t ]+ {
+    /* Otras cadenas (que no sean espacios ni saltos de línea) */
+    printf("Otra cadena: %s\n", yytext);
 }
 
 %%
