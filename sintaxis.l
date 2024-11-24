@@ -15,7 +15,7 @@
     printf("Comentario de varias líneas: %s\n", yytext);
 }
 
-"+"|"-"|"*"|"/"|"^"|"%"|":"|";"|"{"|"}"|"&&"|"||" {
+"+"|"-"|"*"|"/"|"^"|"%"|":"|";"|"{"|"}"|"&&"|"||"|"<="|">="|"="|"==" {
     printf("Es un operador: %s\n", yytext);
 }
 
@@ -39,15 +39,33 @@
     printf("Es un caracter: %s\n", yytext);
 }
 
+[^\n\t ]+ {
+    /* Ignorar espacios en blanco y saltos de línea */
+}
+
+[A-z]* {
+    printf("Caracter no reconocido: %s\n", yytext);
+}
+
 .* {
-    printf("Caracter no reconocido: %s \n", yytext);
-    // return 0;
+    printf("Caracter no reconocido del punto: %s\n", yytext);
 }
 
 %%
 
-int main() {
+int main(int argc, char **argv){
     yylex();
     return 0;
+
+	/* ++argv, --argc;
+	if(argc > 0)
+			yyin = fopen(argv[0], "r");
+	else
+			yyin = stdin;
+			
+	yylex();
+
+
+	return 0; */
 }
 
