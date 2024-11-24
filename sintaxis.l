@@ -27,7 +27,7 @@
     printf("Es un número decimal: %s\n", yytext);
 }
 
-[+-]?[0-9]+"."[0-9]+"e"[+-]?[0-9]+|[+-]?[0-9]+"e"[+-]?[0-9]+ {
+[+-]?[0-9]+("."[0-9]+)?"e"[+-]?[0-9]+ {
     printf("Es un número en notación científica: %s\n", yytext);
 }
 
