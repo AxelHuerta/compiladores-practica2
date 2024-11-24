@@ -39,13 +39,8 @@
     printf("Es un caracter: %s\n", yytext);
 }
 
-[ \t\n]+ {
-    /* Ignora los espacios en blanco, tabuladores y saltos de linea */
-}
-
 [^\n\t ]+ {
-    /* Otras cadenas (que no sean espacios ni saltos de línea) */
-    printf("Otra cadena: %s\n", yytext);
+    printf("Es una cadena no reconocida: %s\n", yytext);
 }
 
 %%
